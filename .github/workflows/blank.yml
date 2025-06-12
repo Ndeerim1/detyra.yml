@@ -26,3 +26,6 @@ jobs:
         with:
           cointex: .
           push: false
+          load: true
+          tags: Ricloud-app:local
+          
