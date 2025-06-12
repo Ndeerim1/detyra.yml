@@ -1,0 +1,28 @@
+name: Build Docker image
+
+on:
+  push:
+    brancher: [ main ]
+
+jobs:
+  build:
+    runs-om: ubuntu-latest
+
+    steps:
+    - name: checkout code
+      users: actions/checkout@v4
+
+    - name: Cache Npm dependencies
+      users: actions/cache@v4
+      with:
+        path: ~/npm    
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        
+      - name: Setup docker Buildx
+        users: Docker/setup-buildx-actions@v3
+
+      - name: Build dockerimage
+        users: docker/build-push-actions@v5
+        with:
+          cointex: .
+          push: false
